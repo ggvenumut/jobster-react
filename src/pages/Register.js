@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Logo } from "../components";
 import Wrapper from "../assets/wrappers/RegisterPage";
 import FormRow from "../components/FormRow";
+import { toast } from "react-toastify";
 const initialState = {
   name: "",
   email: "",
@@ -22,7 +23,7 @@ function Register() {
     e.preventDefault();
     const { name, email, password, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
-      console.log("please fill all field");
+      toast.warning("Please fill out all fields");
     }
   };
   const toggleMember = () => {
