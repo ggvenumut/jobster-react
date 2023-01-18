@@ -1,4 +1,6 @@
+import Wrapper from "../assets/wrappers/Navbar";
+
 function Navbar() {
-  return <div>Navbar</div>;
+  return <Wrapper>Navbar</Wrapper>;
 }
 export default Navbar;
