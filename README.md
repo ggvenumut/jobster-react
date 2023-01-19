@@ -2275,7 +2275,7 @@ npm install moment
 Job.js
 
 ```js
-const date = moment(createdAt).format("MMM Do, YYYY");
+
 ```
 
 #### 65) Toggle Loading in AllJobs
