@@ -17,11 +17,24 @@ function SearchContainer() {
     if (isLoading) return;
     dispatch(handleChange({ name: e.target.name, value: e.target.value }));
   };
+
+  const debounce = () => {
+    console.log("d");
+    let timeoutID;
+    return (e) => {
+      setLocalSearch(e.target.value);
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(() => {
+        dispatch(handleChange({ name: e.target.name, value: e.target.value }));
+      }, 500);
+    };
+  };
+  const optimizedDebounce = useMemo(() => debounce(), []);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLocalSearch("");
     dispatch(clearFilters());
   };
-
   return (
     <Wrapper>
       <form className="form">
@@ -31,7 +44,7 @@ function SearchContainer() {
             type="text"
             name="search"
             value={localSearch}
-            handleChange={(e) => setLocalSearch(e.target.value)}
+            handleChange={optimizedDebounce}
           />
           <FormRowSelect
             labelText="status"
