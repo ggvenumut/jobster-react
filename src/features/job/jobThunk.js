@@ -2,11 +2,11 @@ import { showLoading, hideLoading, getAllJobs } from "../allJobs/allJobsSlice";
 import customFetch from "../../utils/axios";
 import { clearValues } from "./jobSlice";
 import { logoutUser } from "../user/userSlice";
-import authHeader from "../../utils/authHeader";
 
 export const createJobThunk = async (job, thunkAPI) => {
+  console.log("girdi");
   try {
-    const resp = await customFetch.post("/jobs", job, authHeader(thunkAPI));
+    const resp = await customFetch.post("/jobs", job);
     thunkAPI.dispatch(clearValues());
     return resp.data;
   } catch (error) {
@@ -20,10 +20,7 @@ export const createJobThunk = async (job, thunkAPI) => {
 export const deleteJobThunk = async (jobId, thunkAPI) => {
   thunkAPI.dispatch(showLoading());
   try {
-    const resp = await customFetch.delete(
-      `/jobs/${jobId}`,
-      authHeader(thunkAPI)
-    );
+    const resp = await customFetch.delete(`/jobs/${jobId}`);
     thunkAPI.dispatch(getAllJobs());
     return resp.data.msg;
   } catch (error) {
@@ -33,11 +30,7 @@ export const deleteJobThunk = async (jobId, thunkAPI) => {
 };
 export const editJobThunk = async ({ jobId, job }, thunkAPI) => {
   try {
-    const resp = await customFetch.patch(
-      `/jobs/${jobId}`,
-      job,
-      authHeader(thunkAPI)
-    );
+    const resp = await customFetch.patch(`/jobs/${jobId}`, job);
     thunkAPI.dispatch(clearValues());
     return resp.data;
   } catch (error) {
