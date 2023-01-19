@@ -2,8 +2,10 @@ import { FormRow, FormRowSelect } from ".";
 import Wrapper from "../assets/wrappers/SearchContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { handleChange, clearFilters } from "../features/allJobs/allJobsSlice";
+import { useState, useMemo } from "react";
 
 function SearchContainer() {
+  const [localSearch, setLocalSearch] = useState("");
   const { isLoading, search, searchStatus, searchType, sort, sortOptions } =
     useSelector((store) => store.allJobs);
 
@@ -28,8 +30,8 @@ function SearchContainer() {
           <FormRow
             type="text"
             name="search"
-            value={search}
-            handleChange={handleSearch}
+            value={localSearch}
+            handleChange={(e) => setLocalSearch(e.target.value)}
           />
           <FormRowSelect
             labelText="status"
